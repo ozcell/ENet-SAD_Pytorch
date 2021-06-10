@@ -1,5 +1,5 @@
 Dataset_Path = dict(
-    CULane = "/workspace/CULANE_DATASET",
-    Tusimple = "/workspace/TUSIMPLE_DATASET",
-    bdd100k = "/workspace/BDD100K_DATASET"
+    CULane = "/home/ok21/dataset/culane",
+    Tusimple = "/home/ok21/dataset/tusimple",
+    #bdd100k = "/home/ok21/dataset/bdd100k"
 )

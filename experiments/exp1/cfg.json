@@ -5,7 +5,7 @@
 
   "dataset": {
     "dataset_name": "CULane",
-    "batch_size": 12,
+    "batch_size": 2,
     "resize_shape": [800, 288]
   },
 

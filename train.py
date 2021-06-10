@@ -12,7 +12,7 @@ from config import *
 import dataset
 from model import SCNN
 from model_ENET_SAD import ENet_SAD
-from utils.tensorboard import TensorBoard
+#from utils.tensorboard import TensorBoard
 from utils.transforms import *
 from utils.lr_scheduler import PolyLR
 
@@ -41,7 +41,7 @@ with open(os.path.join(exp_dir, "cfg.json")) as f:
 resize_shape = tuple(exp_cfg['dataset']['resize_shape'])
 
 device = torch.device(exp_cfg['device'])
-tensorboard = TensorBoard(exp_dir)
+#tensorboard = TensorBoard(exp_dir)
 
 # ------------ train data ------------
 # # CULane mean, std
@@ -142,17 +142,17 @@ def train(epoch):
         progressbar.update(1)
 
         lr = optimizer.param_groups[0]['lr']
-        tensorboard.scalar_summary(exp_name + "/train_loss", train_loss, iter_idx)
-        tensorboard.scalar_summary(exp_name + "/train_loss_seg", train_loss_seg, iter_idx)
-        tensorboard.scalar_summary(exp_name + "/train_loss_exist", train_loss_exist, iter_idx)
-        tensorboard.scalar_summary(exp_name + "/learning_rate", lr, iter_idx)
+        #tensorboard.scalar_summary(exp_name + "/train_loss", train_loss, iter_idx)
+        #tensorboard.scalar_summary(exp_name + "/train_loss_seg", train_loss_seg, iter_idx)
+        #tensorboard.scalar_summary(exp_name + "/train_loss_exist", train_loss_exist, iter_idx)
+        #tensorboard.scalar_summary(exp_name + "/learning_rate", lr, iter_idx)
 
     """
     p.join(10)
     """
 
     progressbar.close()
-    tensorboard.writer.flush()
+    #tensorboard.writer.flush()
 
     if epoch % 1 == 0:
         save_dict = {
@@ -217,7 +217,7 @@ def val(epoch):
                     cv2.putText(lane_img, "{}".format([1 if exist_pred[b, i]>0.5 else 0 for i in range(4)]), (20, 20), cv2.FONT_HERSHEY_SIMPLEX, 1.1, (255, 255, 255), 2)
                     origin_imgs.append(img)
                     origin_imgs.append(lane_img)
-                tensorboard.image_summary("img_{}".format(batch_idx), origin_imgs, epoch)
+                #tensorboard.image_summary("img_{}".format(batch_idx), origin_imgs, epoch)
 
             val_loss += loss.item()
             val_loss_seg += loss_seg.item()
@@ -228,10 +228,10 @@ def val(epoch):
 
     progressbar.close()
     iter_idx = (epoch + 1) * len(train_loader)  # keep align with training process iter_idx
-    tensorboard.scalar_summary("val_loss", val_loss, iter_idx)
-    tensorboard.scalar_summary("val_loss_seg", val_loss_seg, iter_idx)
-    tensorboard.scalar_summary("val_loss_exist", val_loss_exist, iter_idx)
-    tensorboard.writer.flush()
+    #tensorboard.scalar_summary("val_loss", val_loss, iter_idx)
+    #tensorboard.scalar_summary("val_loss_seg", val_loss_seg, iter_idx)
+    #tensorboard.scalar_summary("val_loss_exist", val_loss_exist, iter_idx)
+    #tensorboard.writer.flush()
 
     print("------------------------\n")
     if val_loss < best_val_loss:
